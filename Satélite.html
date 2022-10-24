@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<body>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<div class = "top">
+
+<div class = tittle>
+
+<img src="https://i.imgur.com/cS7RHtO.png" class="satelite">
+
+</div>
+<br><br>
+
+</div>
+<div class = "texto">
+
+Ingresa la altura del satélite en Kilómetros y pulsa START
+
+<div> <input type = "text" id = 'distance' class = "bar"></div>
+
+</div>
+
+<div style="text-align: center; margin-top: 2%;">
+<button type = "button" class = "start" onclick="started()" >START</button>
+</div>
+
+<div class = "datos">
+
+  <label id="altura"></label>
+
+</div>
+
+<style type="text/css">
+
+body{
+
+background-image: url("https://www.hytera.com/iwov-resources/hytera/02_products/4_banner_image/catagory_satellite_banner.jpg");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+}
+
+.satelite{
+
+width: 50%;
+
+}
+
+.top{
+
+background-color: #1fc9af00;
+padding: 10px;
+text-align: center;
+font-family: 'Stencil', sans-serif;
+border-radius: 20px;
+}
+
+.texto{
+
+font-size: 300%;
+color: #ffffff;
+font-family: "Stencil", sans-serif;
+text-align: center;
+background-color: #2e518b;
+border-radius: 10px;
+margin: 0% 8% 0% 8%;
+box-shadow: 15px 10px 5px 0px #00000033;
+
+}
+
+.bar{
+
+background-color: #2d63bb;
+border: 4px solid #0b1f3f;
+box-shadow: 15px 10px 5px 0px #00000033;
+border-radius: 2px;
+font-size: 20px;
+
+}
+
+.start{
+
+border: 0px solid #113268; /*anchura, estilo y color borde*/
+padding: 10px; /*espacio alrededor texto*/
+background-color: #2e518b; /*color botón*/
+color: #ffffff; /*color texto*/
+text-decoration: none; /*decoración texto*/
+text-transform: uppercase; /*capitalización texto*/
+font-family: 'Bauhaus 93', sans-serif; /*tipografía texto*/
+border-radius: 10px; /*bordes redondos*/
+font-size: 50px;
+box-shadow: 15px 10px 5px 0px #00000033;
+}
+
+.start:hover{
+
+cursor: pointer;
+border: 0px solid #2e518b; /*anchura, estilo y color borde*/
+padding: 10px; /*espacio alrededor texto*/
+background-color: #19396d; /*color botón*/
+color: #ffffff; /*color texto*/
+text-decoration: none; /*decoración texto*/
+text-transform: uppercase; /*capitalización texto*/
+font-family: 'Bauhaus 93', sans-serif; /*tipografía texto*/
+border-radius: 10px; /*bordes redondos*/
+font-size: 50px;
+box-shadow: 15px 10px 5px 0px #00000033;
+transition: 0.2s;
+}
+
+.start:active{
+
+border: 0px solid #2e518b; /*anchura, estilo y color borde*/
+padding: 10px; /*espacio alrededor texto*/
+background-color: #19396d; /*color botón*/
+color: #ffffff; /*color texto*/
+text-decoration: none; /*decoración texto*/
+text-transform: uppercase; /*capitalización texto*/
+font-family: 'Bauhaus 93', sans-serif; /*tipografía texto*/
+border-radius: 10px; /*bordes redondos*/
+font-size: 40px;
+box-shadow: 15px 10px 5px 0px #00000033;
+transition: 0.2s;
+}
+
+.datos{
+
+background-color: #2e518b;
+border-radius: 20px;
+color: #ffffff;
+font-family: 'Arial Rounded MT', sans-serif;
+text-align: center;
+font-size: 25px;
+margin: 2% 20% 0px 20%;
+box-shadow: 15px 10px 5px 0px #00000033;
+padding: 40px;
+
+}
+
+</style>
+
+
+<script>
+
+function started(){
+
+var gravity = 6.67
+
+for(i=0;i<11;i++){
+
+gravity = gravity*(1/10)
+
+}
+
+var masaT = 5.97
+
+for(i=0;i<24;i++){
+  
+  masaT = masaT*10
+  
+}
+
+var radioT = 6370000
+var alturaS = (document.getElementById("distance").value)*1000;
+var alturaH = (radioT + alturaS)
+var perimetro = (2*3.14159*(alturaH))
+var velocidadT2 = ((gravity*masaT)/alturaH)
+var velocidadT = Math.sqrt((gravity*masaT)/alturaH)
+var periodoT = (perimetro/velocidadT)
+var velocidadA = (2*3.14159/(periodoT))
+var aceleracionC = (velocidadT2/alturaH)
+
+var elevado = 0
+
+while (velocidadA<1){
+  
+  velocidadA = velocidadA*10
+  elevado++
+}
+
+velocidadA = (Math.trunc(velocidadA*1000)/1000)
+aceleracionC = (Math.trunc(aceleracionC*100)/100)
+velocidadT = (Math.trunc(velocidadT*100)/100)
+periodoT = (Math.trunc(periodoT*100)/100)
+
+/*console.log(perimetro)
+    console.log(gravity)
+      console.log(masaT)*/
+
+var benson = (`ALTURA SATÉLITE ${alturaS/1000} KM <br><br> La velocidad tangencial del satélite es de ${velocidadT} [m/s] <br> El tiempo que demora el satélite en dar una vuelta a la tierra es de ${periodoT} [s] <br> La velocidad angular del satélite es de ${velocidadA}*(10^-${elevado}) [rad/s] <br> La aceleración centrípeta del satélite es de ${aceleracionC} [m/s^2]`)
+
+console.log(`----------ALTURA SATÉLITE ${alturaS/1000} KM----------`)
+
+console.log(`La velocidad tangencial del satélite es de ${velocidadT} metros por segundo`)
+console.log(`El tiempo que demora el satélite en dar una vuelta a la tierra es de ${periodoT} segundos`)
+console.log(`La velocidad angular del satélite es de ${velocidadA}*(10^-${elevado}) radianes por segundo`)
+console.log(`La aceleración centrípeta del satélite es de ${aceleracionC} metros por segundo`)
+
+var catcher = document.getElementById("altura");
+catcher.innerHTML = benson;
+
+}
+
+</script>
+ 
+</body>
+</html>
